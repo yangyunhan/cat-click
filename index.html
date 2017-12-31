@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat Clicker</title>
+</head>
+<body>
+
+    <ul id="cat-list"></ul>
+    <div id="cat">
+
+        <h2 id="cat-name" data-bind="text: name"></h2>
+        <div data-bind="text: grade"></div>
+        <div id="cat-count" data-bind="text: clickCount"></div>
+        <img id="cat-img" src="" alt="cute cat" data-bind="click: incrementCounter,
+        attr: {src: imgSrc}">
+
+    </div>
+
+    <table>
+        <thead>
+        <tr><th>First name</th><th>Last name</th></tr>
+        </thead>
+        <tbody data-bind="foreach: people">
+        <tr>
+            <td data-bind="text: firstName"></td>
+            <td data-bind="text: lastName"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h4>People</h4>
+    <ul data-bind="foreach: p">
+        <li>
+            Name at position <span data-bind="text: $index"> </span>:
+            <span data-bind="text: n"> </span>
+            <a href="#" data-bind="click: $parent.removePerson">Remove</a>
+        </li>
+    </ul>
+    <button data-bind="click: addPerson">Add</button>
+
+    <!--
+    <ul data-bind="foreach: months">
+        <li>
+            The current item is: <b data-bind="text: $data"></b>
+        </li>
+    </ul>
+    -->
+    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
