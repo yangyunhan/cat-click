@@ -1,0 +1,36 @@
+*{margin: 0; padding: 0}
+.cat1,.cat2{
+    display: block;
+}
+p{
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+}
+.container{
+    position: relative;
+    width: 640px;
+    margin: 5em auto 1em;
+}
+.name{
+    position: absolute;
+    top: 0;
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+}
+li{
+    display: inline-block;
+    width: 16%;
+    height: 16%;
+    list-style: none;
+}
+img{
+    width: 100%;
+}
+.listContain{
+    width: 90%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
