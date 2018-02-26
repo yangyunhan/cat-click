@@ -1,72 +1,70 @@
-var initialCats = [
-    {
-        clickCount: 0,
-        name: 'Tabby',
-        imgSrc: 'img/434164568_fea0ad4013_z.jpg',
-        imgAttrbution: 'https://www.flickr.com/photos/bigtallguy/434164568',
-        nicknames: ['Tabtab', 'T-Bone', 'Mr.T', 'Tabitha Tab']
-    },
-    {
-        clickCount: 0,
-        name: 'Tiger',
-        imgSrc: 'img/4154543904_6e2428c421_z.jpg',
-        imgAttribution: 'https://www.flickr.com/photos/xshamx/4154543904',
-        nicknames: ['Tigger']
-    },
-    {
-        clickCount: 0,
-        name: 'Scaredy',
-        imgSrc: 'img/22252709_010df3379e_z.jpg',
-        imgAttribution: 'https://www.flickr.com/photos/kpjas/22252709',
-        nicknames: ['Tabtab', 'T-Bone']
-    },
-    {
-        clickCount: 0,
-        name: 'Shadow',
-        imgSrc: 'img/1413379559_412a540d29_z.jpg',
-        imgAttribution: 'https://www.flickr.com/photos/malfet/1413379559',
-        nicknames: ['Mr.T', 'Tabitha Tab']
-    }
-];
-var Cat = function (data) {
-    this.clickCount = ko.observable(data.clickCount);
-    this.name = ko.observable(data.name);
-    this.imgSrc = ko.observable(data.imgSrc);
-    this.imgAttribution = ko.observable(data.imgAttribution);
-    this.nicknames = ko.observableArray(data.nicknames);
-    this.title = ko.computed(function () {
-        var title;
-        var clicks = this.clickCount();
-        if (clicks <10){
-            title = 'Newborn';
-        } else if(clicks < 50){
-            title = 'Infant';
-        } else if(clicks <100){
-            title = 'Child';
-        } else if(clicks <200){
-            title = 'Teen';
-        } else if(clicks <500){
-            title = 'Adult';
-        } else {
-            title = 'Ninja';
-        }
-        return title;
-    },this);
-};
-var ViewModel = function () {
-    var self = this;
-    self.catList = ko.observableArray([]);
-    initialCats.forEach(function (catItem) {
-        self.catList.push(new Cat(catItem));
-    });
-    self.currentCat = ko.observable(this.catList()[0]);
-    self.clickCat = function (cat) {
-        self.currentCat(cat);
-    };
-    self.incrementCounter = function () {
-        self.currentCat().clickCount(self.currentCat().clickCount() + 1);//self表示视图模型
-        //this.clickCount(this.clickCount() + 1);//this表示当前猫的binding context
-    };
-};
+$(function () {
+   let len = $('.container').length;
+   function addImage(url,name) {
+      let htmlContent = `<div class="container">
+         <p class="name">Her name is ${name}</p>
+            <img src=${url} alt="${name} picture" class="cat${len+1}">
+            <p>You have click <span>0</span> times.</p>
+      </div>`;
+      $('body').append(htmlContent);
+      len ++;
+   }
 
-ko.applyBindings(new ViewModel());
+   function selectCat() {
+       const catslist = $('.listContain ul li');
+       const contain = $('.container');
+       $.each(catslist,function (i,value) {
+           $(this).click(function () {
+               $('.cat1')[0].parentNode.children[2].firstElementChild.innerHTML = 0;
+               $(contain)[0].children[0].firstElementChild.innerHTML = cats[i].name;
+               $(contain)[0].children[1].attributes[0].nodeValue = cats[i].url;
+               clickNum('.cat1');
+           });
+       })
+   }
+
+   const cats = [
+       {
+          'name':'Jetske',
+           'url':'../images/cat1Jetske.jpg'
+       },
+       {
+          'name':'MikhailVasilyev',
+           'url':'../images/cat2MikhailVasilyev.jpg'
+       },
+       {
+          'name':'KariShea',
+           'url':'../images/cat3KariShea.jpg'
+       },
+       {
+          'name':'PactoVisual',
+           'url':'../images/cat4PactoVisual.jpg'
+       },
+       {
+          'name':'SabriTuzcu',
+           'url':'../images/cat5SabriTuzcu.jpg'
+       },
+       {
+          'name':'MarkoBlaze',
+           'url':'../images/cat6MarkoBlazevic.jpg'
+       }
+   ];
+   /*if(cats && cats.length > 0){
+       for (let cat in cats){
+           addImage(cats[cat].url,cats[cat].name);
+       }
+   }*/
+
+   function clickNum(selector) {
+      let num = 0;
+      $(selector).click(function () {
+         num ++;
+         $(selector)[0].parentNode.children[2].firstElementChild.innerHTML = num;
+      })
+   }
+   selectCat();
+   clickNum('.cat1');
+   /*for(let i = 0;i<len;i++){
+      clickNum('.cat'+(i+1));
+   }*/
+});
